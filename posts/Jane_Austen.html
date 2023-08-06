@@ -23,6 +23,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -173,6 +207,13 @@ ul.task-list li input[type="checkbox"] {
 <p>The classics dataset includes data about 1006 books from the work of 555 authors. For each book, the dataset provides general information such as publication year and classification, also word analysis information such as number of sentences or reading difficulty level scores.</p>
 <p>Potential areas of concern in the data are overlapping information and missing/misleading publication years. The book ‘Pride and Prejudice,’ for example, has two versions, with one being an updated version and the other being an older version. Publication year may also be misleading as the year may reflect a more recent, edited publication of the book rather than the original publication year. I will the cleaning the data to resolve these concerns.</p>
 <div class="cell" data-scrolled="true" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># importing the data</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>dataset <span class="op">=</span> <span class="st">"classics.csv"</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>classic_data <span class="op">=</span> pd.read_csv(<span class="st">'classics.csv'</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>classic_data.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="3">
 <div>
 
@@ -330,16 +371,6 @@ ul.task-list li input[type="checkbox"] {
 
 <p>5 rows × 38 columns</p>
 </div>
-</div>
-</div>
-<div class="cell" data-execution_count="2">
-<div class="cell-output cell-output-stdout">
-<pre><code>1006</code></pre>
-</div>
-</div>
-<div class="cell" data-execution_count="3">
-<div class="cell-output cell-output-stdout">
-<pre><code>555</code></pre>
 </div>
 </div>
 <p>To clean the data, I use the Pandas python library to remove duplicate rows with same boook title, then keeping the updated version of the book. Since my research question is about the works of Jane Austen, I will be filtering out the data to include only Jane Austen’s books and create a separate new dataframe.</p>
@@ -767,28 +798,28 @@ ul.task-list li input[type="checkbox"] {
 <p>Below is my first data exploration graph:</p>
 <div class="cell" data-execution_count="21">
 <div class="cell-output cell-output-display">
-<p><img src="Jane_Austen_files/figure-html/cell-8-output-1.png" class="img-fluid"></p>
+<p><img src="Jane_Austen_files/figure-html/cell-6-output-1.png" class="img-fluid"></p>
 </div>
 </div>
 <p>This bar plot shows that Jane Austen’s work has an average flesch reading score of about 70, which is a fairly easy reading level (7th grade material according to official flesch reading ease website) in comparison to other authors in the same time period. An easy to read level may suggest that Jane intends for her writing to be popularly circulated, so she writes in an easier, less difficult language to attract a public audience.</p>
 <p>Below is my second data exploration graph:</p>
 <div class="cell" data-tags="[&quot;hide_code&quot;]" data-execution_count="8">
 <div class="cell-output cell-output-display">
-<p><img src="Jane_Austen_files/figure-html/cell-9-output-1.png" class="img-fluid"></p>
+<p><img src="Jane_Austen_files/figure-html/cell-7-output-1.png" class="img-fluid"></p>
 </div>
 </div>
 <p>This histogram show the number of books written per author. The most frequent number of books written per lifetime of a classic literature author is between 0 to 5. Jane Austen had 8 publications, which is substantially more compared to other classics authors. What are potential contributing factors for this? Her career as a novelist, talent, family background, time period could all be contriubting factors. These external factors would contribute to the writing style that Jane Austen would adopt, as frequent publications meant the author enjoys public-facing or needs income.</p>
 <p>Below is my third data exploration graph:</p>
 <div class="cell" data-tags="[&quot;hide_code&quot;]" data-execution_count="9">
 <div class="cell-output cell-output-display">
-<p><img src="Jane_Austen_files/figure-html/cell-10-output-1.png" class="img-fluid"></p>
+<p><img src="Jane_Austen_files/figure-html/cell-8-output-1.png" class="img-fluid"></p>
 </div>
 </div>
 <p>This bar plot shows that the average sentiment/polarity score of Jane Austen’s works range from 0.12 to 0.16. This is an overall positive score, which means that Jane Austen generally adopt a positive tone in her writings. It is not surprising to discover this, becaus the book titles are already showing abundance positivity using words like “love”, “sense”, etc. This finding would be further explored in the next section through the analysis of sentiment development in each book.</p>
 <p>Below is my fourth data exploration graph:</p>
 <div class="cell" data-tags="[&quot;hide_code&quot;]" data-execution_count="10">
 <div class="cell-output cell-output-display">
-<p><img src="Jane_Austen_files/figure-html/cell-11-output-1.png" class="img-fluid"></p>
+<p><img src="Jane_Austen_files/figure-html/cell-9-output-1.png" class="img-fluid"></p>
 </div>
 </div>
 <p>This scatterplot shows the sentiment score of Austen’s works ordered by publication year (since the original data had misleading publication years, I created a new list of first publication years based on my research from the Internet). We can see a sentiment score increase as Jane publishes more books, but then the sentiment score decreases in her most recent work. We can also see that there is a gap in the graph, for which Jane’s peak years were 1810s to 1820s, then she did not publish anything until 50 years later in the 1870s. Jane’s personal lifetime could have contributed to her fluctuating choice of words in her works, which will be further explore in the analysis section.</p>
@@ -797,25 +828,25 @@ ul.task-list li input[type="checkbox"] {
 <p>Next part is my data visualizations and analysis. For simplicity and detailed analysis, I will be concentrating on three of the most popular works of Jane Austen, which is “Pride and Prejudice”, “Sense and Sensibility”, and “Emma”.</p>
 <div class="cell" data-execution_count="16">
 <div class="cell-output cell-output-display">
-<p><img src="Jane_Austen_files/figure-html/cell-17-output-1.png" class="img-fluid"></p>
+<p><img src="Jane_Austen_files/figure-html/cell-15-output-1.png" class="img-fluid"></p>
 </div>
 </div>
 <p>This visualization shows the frequency of negative and positive word occurences in each book. A pattern is obvious such that Jane Austen’s writings have a very positive choice of diction, since the frequency of positive words are much higher than the negative ones. This reflects that Jane’s writing style is always encouraging, upward-driven, and energetic. One misleading data, however, is visualized in the plot. The word “miss” have very high frequency as a negative word. However, based on my inspection on the original text file, the word is really a neutral word, such that it is not used to refer to something missing, but rather used for character referencing such as “Miss Bennet”. This data point can be misleading and shows certain flaws in NLP when determining the actual meaning of a word.</p>
 <div class="cell" data-execution_count="18">
 <div class="cell-output cell-output-display">
-<p><img src="Jane_Austen_files/figure-html/cell-19-output-1.png" class="img-fluid"></p>
+<p><img src="Jane_Austen_files/figure-html/cell-17-output-1.png" class="img-fluid"></p>
 </div>
 </div>
 <p>This visualization shows the sentiment development as the plot develops for each book. The overt positive sentiment, as there is almost an absence of negative sentiments all three books, serves as strong evidence and confirmation for my conclusion in the previous visualization. Rather than ups and downs of emotions, the writings of Jane Austen are more characterized by circular peaks of extreme positivism. We can see from the graph that there would be spike(s) of positive sentiment around every 20 chapters in a book or at the very end of the book. It is not surprising to always see an upward-driven sentiment towards the end of the book as Jane Austen like to give happy endings.</p>
 <div class="cell" data-execution_count="19">
 <div class="cell-output cell-output-display">
-<p><img src="Jane_Austen_files/figure-html/cell-20-output-1.png" class="img-fluid"></p>
+<p><img src="Jane_Austen_files/figure-html/cell-18-output-1.png" class="img-fluid"></p>
 </div>
 <div class="cell-output cell-output-display">
-<p><img src="Jane_Austen_files/figure-html/cell-20-output-2.png" class="img-fluid"></p>
+<p><img src="Jane_Austen_files/figure-html/cell-18-output-2.png" class="img-fluid"></p>
 </div>
 <div class="cell-output cell-output-display">
-<p><img src="Jane_Austen_files/figure-html/cell-20-output-3.png" class="img-fluid"></p>
+<p><img src="Jane_Austen_files/figure-html/cell-18-output-3.png" class="img-fluid"></p>
 </div>
 </div>
 <p>This is the character analysis of all three books. These character networks shows that Jane Austen likes to write about female protagonists, and the men and family members revolving around the female protagonist. Austen’s writings always favor the themes of romance, marriage, and family. Through the character analysis, we can see that Austen’s writing style heavily emphasizes familial and friend relationships around the main character, and using these relationships to connect together, oftentimes a close-knit circle of characters and then giving her narrative about society and interpersonal relationships.</p>
