@@ -206,7 +206,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="methods">Methods</h2>
 <p>The classics dataset includes data about 1006 books from the work of 555 authors. For each book, the dataset provides general information such as publication year and classification, also word analysis information such as number of sentences or reading difficulty level scores.</p>
 <p>Potential areas of concern in the data are overlapping information and missing/misleading publication years. The book ‘Pride and Prejudice,’ for example, has two versions, with one being an updated version and the other being an older version. Publication year may also be misleading as the year may reflect a more recent, edited publication of the book rather than the original publication year. I will the cleaning the data to resolve these concerns.</p>
-<div class="cell" data-scrolled="true" data-execution_count="3">
+<div class="cell" data-scrolled="true" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># importing the data</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -214,7 +214,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>classic_data <span class="op">=</span> pd.read_csv(<span class="st">'classics.csv'</span>)</span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>classic_data.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="3">
+<div class="cell-output cell-output-display" data-execution_count="1">
 <div>
 
 
@@ -374,12 +374,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>To clean the data, I use the Pandas python library to remove duplicate rows with same boook title, then keeping the updated version of the book. Since my research question is about the works of Jane Austen, I will be filtering out the data to include only Jane Austen’s books and create a separate new dataframe.</p>
-<div class="cell" data-execution_count="4">
+<div class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># remove duplicate columns</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>columns_to_check_duplicates <span class="op">=</span> [<span class="st">'bibliography.title'</span>]</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>new_classic <span class="op">=</span> classic_data.drop_duplicates(subset<span class="op">=</span>columns_to_check_duplicates, keep<span class="op">=</span><span class="st">'last'</span>)</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>new_classic.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="4">
+<div class="cell-output cell-output-display" data-execution_count="2">
 <div>
 
 
@@ -538,11 +538,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div class="cell" data-execution_count="5">
+<div class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># subset data with only Jane Austen's work</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>jane_data <span class="op">=</span> new_classic[new_classic[<span class="st">'bibliography.author.name'</span>] <span class="op">==</span> <span class="st">"Austen, Jane"</span>]</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>jane_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="5">
+<div class="cell-output cell-output-display" data-execution_count="3">
 <div>
 
 
@@ -802,7 +802,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="results" class="level2">
 <h2 class="anchored" data-anchor-id="results">Results</h2>
-<div class="cell" data-execution_count="6">
+<div class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import packages</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
@@ -814,38 +814,39 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> nltk.corpus <span class="im">import</span> stopwords</span>
 <span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> nltk.corpus <span class="im">import</span> opinion_lexicon</span>
 <span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> nltk.stem.porter <span class="im">import</span> PorterStemmer</span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> string <span class="im">import</span> punctuation</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> string <span class="im">import</span> punctuation</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> networkx <span class="im">as</span> nx</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Below is my first data exploration graph:</p>
-<div class="cell" data-execution_count="21">
+<div class="cell" data-execution_count="5">
 <div class="cell-output cell-output-display">
 <p><img src="Jane_Austen_files/figure-html/cell-6-output-1.png" class="img-fluid"></p>
 </div>
 </div>
 <p>This bar plot shows that Jane Austen’s work has an average flesch reading score of about 70, which is a fairly easy reading level (7th grade material according to official flesch reading ease website) in comparison to other authors in the same time period. An easy to read level may suggest that Jane intends for her writing to be popularly circulated, so she writes in an easier, less difficult language to attract a public audience.</p>
 <p>Below is my second data exploration graph:</p>
-<div class="cell" data-tags="[&quot;hide_code&quot;]" data-execution_count="8">
+<div class="cell" data-tags="[&quot;hide_code&quot;]" data-execution_count="6">
 <div class="cell-output cell-output-display">
 <p><img src="Jane_Austen_files/figure-html/cell-7-output-1.png" class="img-fluid"></p>
 </div>
 </div>
 <p>This histogram show the number of books written per author. The most frequent number of books written per lifetime of a classic literature author is between 0 to 5. Jane Austen had 8 publications, which is substantially more compared to other classics authors. What are potential contributing factors for this? Her career as a novelist, talent, family background, time period could all be contriubting factors. These external factors would contribute to the writing style that Jane Austen would adopt, as frequent publications meant the author enjoys public-facing or needs income.</p>
 <p>Below is my third data exploration graph:</p>
-<div class="cell" data-tags="[&quot;hide_code&quot;]" data-execution_count="9">
+<div class="cell" data-tags="[&quot;hide_code&quot;]" data-execution_count="7">
 <div class="cell-output cell-output-display">
 <p><img src="Jane_Austen_files/figure-html/cell-8-output-1.png" class="img-fluid"></p>
 </div>
 </div>
 <p>This bar plot shows that the average sentiment/polarity score of Jane Austen’s works range from 0.12 to 0.16. This is an overall positive score, which means that Jane Austen generally adopt a positive tone in her writings. It is not surprising to discover this, becaus the book titles are already showing abundance positivity using words like “love”, “sense”, etc. This finding would be further explored in the next section through the analysis of sentiment development in each book.</p>
 <p>Below is my fourth data exploration graph:</p>
-<div class="cell" data-tags="[&quot;hide_code&quot;]" data-execution_count="10">
+<div class="cell" data-tags="[&quot;hide_code&quot;]" data-execution_count="8">
 <div class="cell-output cell-output-display">
 <p><img src="Jane_Austen_files/figure-html/cell-9-output-1.png" class="img-fluid"></p>
 </div>
 </div>
 <p>This scatterplot shows the sentiment score of Austen’s works ordered by publication year (since the original data had misleading publication years, I created a new list of first publication years based on my research from the Internet). We can see a sentiment score increase as Jane publishes more books, but then the sentiment score decreases in her most recent work. We can also see that there is a gap in the graph, for which Jane’s peak years were 1810s to 1820s, then she did not publish anything until 50 years later in the 1870s. Jane’s personal lifetime could have contributed to her fluctuating choice of words in her works, which will be further explore in the analysis section.</p>
 <p>For my analysis, I plan to webscrape the Project Gutenberg’s complete collection of works by Jane Austen. I would use the requests package to retrieve each books’ text file from the website, then split each text into string according to chapters. The end result would be 8 strings with eacch string item being one chapter of that particular book.</p>
-<div class="cell" data-execution_count="11">
+<div class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a function to webscrape text files from Project Gutenberg</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> scrape_txt(target_url):</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    response <span class="op">=</span> requests.get(target_url)</span>
@@ -865,7 +866,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
 <span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">None</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="12">
+<div class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a string of all Jane Austen's work, each item is one book</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>jane_austen <span class="op">=</span> []</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -878,7 +879,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>jane_austen_work <span class="op">=</span> <span class="bu">dict</span>(<span class="bu">zip</span>(book_title, jane_austen))</span>
 <span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>jane_austen_work <span class="op">=</span> <span class="bu">dict</span>(<span class="bu">list</span>(jane_austen_work.items())[:<span class="dv">8</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="13">
+<div class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># splitting each book into chapters, all accessible in the dictionary "chapters"</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>chapters <span class="op">=</span> {}</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>titles <span class="op">=</span> {</span>
@@ -933,7 +934,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>At this point, I’ve created two important strings: jane_austen_work and chapters. The “jane_austen_work” is a dictionary, for which each tuple represent a key that is a book title and a value that is the content/text of the book. This makes the accessibility of txt files according to book title easy for later analysis. The “chapters” is also a dictionary, for which whenever I enter the key, or a book title, the content/value will be the corresponding txt split into book chapters. This helps me to conduct analysis per chapter and track development in each book.</p>
 <p>Next part is my data visualizations and analysis. For simplicity and detailed analysis, I will be concentrating on three of the most popular works of Jane Austen, which is “Pride and Prejudice”, “Sense and Sensibility”, and “Emma”.</p>
 <p>My first visualization is about overall sentiment in each book:</p>
-<div class="cell" data-execution_count="14">
+<div class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Data visualization 1 --&gt; Overall Sentiment</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute the overall polarity score of positive and negative words in each book</span></span>
@@ -942,7 +943,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>stop_words <span class="op">=</span> <span class="bu">set</span>(stopwords.words(<span class="st">'english'</span>))</span>
 <span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>analyzer <span class="op">=</span> vader.SentimentIntensityAnalyzer()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="15">
+<div class="cell" data-execution_count="13">
 <details open="">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># For each book, I find the most frequent positive words and negative words, then put them separately into two lists</span></span>
@@ -1026,7 +1027,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb9-79"><a href="#cb9-79" aria-hidden="true" tabindex="-1"></a>neg_words3, neg_frequencies3 <span class="op">=</span> <span class="bu">zip</span>(<span class="op">*</span>com_neg3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div class="cell" data-execution_count="16">
+<div class="cell" data-execution_count="14">
 <details open="">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Creating a combined visualization using subplot</span></span>
@@ -1072,7 +1073,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>This visualization shows the frequency of negative and positive word occurences in each book. A pattern is obvious such that Jane Austen’s writings have a very positive choice of diction, since the frequency of positive words are much higher than the negative ones. This reflects that Jane’s writing style is always encouraging, upward-driven, and energetic. One misleading data, however, is visualized in the plot. The word “miss” have very high frequency as a negative word. However, based on my inspection on the original text file, the word is really a neutral word, such that it is not used to refer to something missing, but rather used for character referencing such as “Miss Bennet”. This data point can be misleading and shows certain flaws in NLP when determining the actual meaning of a word.</p>
 <p>Next is my second data visualziation about sentiment development:</p>
-<div class="cell" data-execution_count="17">
+<div class="cell" data-execution_count="15">
 <details open="">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Data visualization 2 --&gt; Sentiment Development</span></span>
@@ -1131,7 +1132,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb11-54"><a href="#cb11-54" aria-hidden="true" tabindex="-1"></a>  chapter_number3.append(number)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div class="cell" data-execution_count="18">
+<div class="cell" data-execution_count="16">
 <details open="">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create subplots to combine visualizations of three books</span></span>
@@ -1166,106 +1167,108 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>This visualization shows the sentiment development as the plot develops for each book. The overt positive sentiment, as there is almost an absence of negative sentiments all three books, serves as strong evidence and confirmation for my conclusion in the previous visualization. Rather than ups and downs of emotions, the writings of Jane Austen are more characterized by circular peaks of extreme positivism. We can see from the graph that there would be spike(s) of positive sentiment around every 20 chapters in a book or at the very end of the book. It is not surprising to always see an upward-driven sentiment towards the end of the book as Jane Austen like to give happy endings.</p>
 <p>My third visualization is network analysis of characters:</p>
-<div class="cell" data-execution_count="4">
+<div class="cell" data-execution_count="17">
 <details open="">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Data Visualization 3 - Character Analysis</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> networkx <span class="im">as</span> nx</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Emma</span></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>edges1 <span class="op">=</span> [</span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'Emma'</span>, <span class="st">'Harriet'</span>),</span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'Emma'</span>, <span class="st">'Jane'</span>),</span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'Emma'</span>, <span class="st">'Mr.Knightley'</span>),</span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'Emma'</span>, <span class="st">'Mrs.Weston'</span>),</span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'Jane'</span>, <span class="st">'Frank'</span>),</span>
-<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'Jane'</span>, <span class="st">'Mrs.Weston'</span>),</span>
-<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'Mr.Knightley'</span>, <span class="st">'Harriet'</span>),</span>
-<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'Harriet'</span>, <span class="st">'Mr.Elton'</span>),</span>
-<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'Emma'</span>, <span class="st">'Miss Bates'</span>),</span>
-<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'Miss Bates'</span>, <span class="st">'Jane'</span>) </span>
-<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>]</span>
-<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a network graph</span></span>
-<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>G <span class="op">=</span> nx.Graph()</span>
-<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>G.add_edges_from(edges1)</span>
-<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate degree centrality for each node (character)</span></span>
-<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a>degree_centrality <span class="op">=</span> nx.degree_centrality(G)</span>
-<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate node size based on degree centrality (multiply by a scaling factor for better visualization)</span></span>
-<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a>node_size <span class="op">=</span> [<span class="dv">2000</span> <span class="op">*</span> degree_centrality[node] <span class="cf">for</span> node <span class="kw">in</span> G.nodes()]</span>
-<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the network graph with node sizes according to degree centrality</span></span>
-<span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a>pos <span class="op">=</span> nx.spring_layout(G, seed<span class="op">=</span><span class="dv">42</span>)</span>
-<span id="cb13-30"><a href="#cb13-30" aria-hidden="true" tabindex="-1"></a>nx.draw(G, pos, with_labels<span class="op">=</span><span class="va">True</span>, node_color<span class="op">=</span><span class="st">'skyblue'</span>, node_size<span class="op">=</span>node_size, font_size<span class="op">=</span><span class="dv">10</span>, font_weight<span class="op">=</span><span class="st">'bold'</span>)</span>
-<span id="cb13-31"><a href="#cb13-31" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Character Network Analysis of Emma"</span>)</span>
-<span id="cb13-32"><a href="#cb13-32" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
-<span id="cb13-33"><a href="#cb13-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-34"><a href="#cb13-34" aria-hidden="true" tabindex="-1"></a><span class="co"># Sense and Sensibility</span></span>
-<span id="cb13-35"><a href="#cb13-35" aria-hidden="true" tabindex="-1"></a>edges2 <span class="op">=</span> [</span>
-<span id="cb13-36"><a href="#cb13-36" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'Elizabeth'</span>, <span class="st">'Darcy'</span>),</span>
-<span id="cb13-37"><a href="#cb13-37" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'Elizabeth'</span>, <span class="st">'Jane'</span>),</span>
-<span id="cb13-38"><a href="#cb13-38" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'Jane'</span>, <span class="st">'Bingley'</span>),</span>
-<span id="cb13-39"><a href="#cb13-39" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'Elizabeth'</span>, <span class="st">'Mrs.Bennet'</span>),</span>
-<span id="cb13-40"><a href="#cb13-40" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'Elizabeth'</span>, <span class="st">'Wickham'</span>),</span>
-<span id="cb13-41"><a href="#cb13-41" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'Elizabeth'</span>, <span class="st">'Mr.Collins'</span>),</span>
-<span id="cb13-42"><a href="#cb13-42" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'Mr.Collins'</span>, <span class="st">'Lady Catherine'</span>),</span>
-<span id="cb13-43"><a href="#cb13-43" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'Lady Catherine'</span>, <span class="st">'Darcy'</span>),</span>
-<span id="cb13-44"><a href="#cb13-44" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'Charlotte'</span>, <span class="st">'Elizabeth'</span>),</span>
-<span id="cb13-45"><a href="#cb13-45" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'Charlotte'</span>, <span class="st">'Mr.Collins'</span>)</span>
-<span id="cb13-46"><a href="#cb13-46" aria-hidden="true" tabindex="-1"></a>]</span>
-<span id="cb13-47"><a href="#cb13-47" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-48"><a href="#cb13-48" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a network graph</span></span>
-<span id="cb13-49"><a href="#cb13-49" aria-hidden="true" tabindex="-1"></a>G <span class="op">=</span> nx.Graph()</span>
-<span id="cb13-50"><a href="#cb13-50" aria-hidden="true" tabindex="-1"></a>G.add_edges_from(edges2)</span>
-<span id="cb13-51"><a href="#cb13-51" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-52"><a href="#cb13-52" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate degree centrality for each node (character)</span></span>
-<span id="cb13-53"><a href="#cb13-53" aria-hidden="true" tabindex="-1"></a>degree_centrality <span class="op">=</span> nx.degree_centrality(G)</span>
-<span id="cb13-54"><a href="#cb13-54" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-55"><a href="#cb13-55" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate node size based on degree centrality (multiply by a scaling factor for better visualization)</span></span>
-<span id="cb13-56"><a href="#cb13-56" aria-hidden="true" tabindex="-1"></a>node_size <span class="op">=</span> [<span class="dv">2000</span> <span class="op">*</span> degree_centrality[node] <span class="cf">for</span> node <span class="kw">in</span> G.nodes()]</span>
-<span id="cb13-57"><a href="#cb13-57" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-58"><a href="#cb13-58" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the network graph with node sizes according to degree centrality</span></span>
-<span id="cb13-59"><a href="#cb13-59" aria-hidden="true" tabindex="-1"></a>pos <span class="op">=</span> nx.spring_layout(G, seed<span class="op">=</span><span class="dv">42</span>)</span>
-<span id="cb13-60"><a href="#cb13-60" aria-hidden="true" tabindex="-1"></a>nx.draw(G, pos, with_labels<span class="op">=</span><span class="va">True</span>, node_color<span class="op">=</span><span class="st">'skyblue'</span>, node_size<span class="op">=</span>node_size, font_size<span class="op">=</span><span class="dv">10</span>, font_weight<span class="op">=</span><span class="st">'bold'</span>)</span>
-<span id="cb13-61"><a href="#cb13-61" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Character Network Analysis of Pride and Prejudice"</span>)</span>
-<span id="cb13-62"><a href="#cb13-62" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
-<span id="cb13-63"><a href="#cb13-63" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-64"><a href="#cb13-64" aria-hidden="true" tabindex="-1"></a>edges3 <span class="op">=</span> [</span>
-<span id="cb13-65"><a href="#cb13-65" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'Elinor'</span>, <span class="st">'Marianne'</span>),</span>
-<span id="cb13-66"><a href="#cb13-66" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'Elinor'</span>, <span class="st">'Willoughby'</span>),</span>
-<span id="cb13-67"><a href="#cb13-67" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'Willoughby'</span>, <span class="st">'Marianne'</span>),</span>
-<span id="cb13-68"><a href="#cb13-68" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'Elinor'</span>, <span class="st">'Mrs.Dashwood'</span>),</span>
-<span id="cb13-69"><a href="#cb13-69" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'Elinor'</span>, <span class="st">'Lucy Steele'</span>),</span>
-<span id="cb13-70"><a href="#cb13-70" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'Mrs.Dashwood'</span>, <span class="st">'Marianne'</span>),</span>
-<span id="cb13-71"><a href="#cb13-71" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'Elinor'</span>, <span class="st">'Mrs.Jennings'</span>),</span>
-<span id="cb13-72"><a href="#cb13-72" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'Mrs.Jennings'</span>, <span class="st">'Marianne'</span>),</span>
-<span id="cb13-73"><a href="#cb13-73" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'Elinor'</span>, <span class="st">'Mr.Palmer'</span>),</span>
-<span id="cb13-74"><a href="#cb13-74" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'Marianne'</span>, <span class="st">'Mrs.Ferrars'</span>)</span>
-<span id="cb13-75"><a href="#cb13-75" aria-hidden="true" tabindex="-1"></a>]</span>
-<span id="cb13-76"><a href="#cb13-76" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-77"><a href="#cb13-77" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a network graph</span></span>
-<span id="cb13-78"><a href="#cb13-78" aria-hidden="true" tabindex="-1"></a>G <span class="op">=</span> nx.Graph()</span>
-<span id="cb13-79"><a href="#cb13-79" aria-hidden="true" tabindex="-1"></a>G.add_edges_from(edges3)</span>
-<span id="cb13-80"><a href="#cb13-80" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-81"><a href="#cb13-81" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate degree centrality for each node (character)</span></span>
-<span id="cb13-82"><a href="#cb13-82" aria-hidden="true" tabindex="-1"></a>degree_centrality <span class="op">=</span> nx.degree_centrality(G)</span>
-<span id="cb13-83"><a href="#cb13-83" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-84"><a href="#cb13-84" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate node size based on degree centrality (multiply by a scaling factor for better visualization)</span></span>
-<span id="cb13-85"><a href="#cb13-85" aria-hidden="true" tabindex="-1"></a>node_size <span class="op">=</span> [<span class="dv">2000</span> <span class="op">*</span> degree_centrality[node] <span class="cf">for</span> node <span class="kw">in</span> G.nodes()]</span>
-<span id="cb13-86"><a href="#cb13-86" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-87"><a href="#cb13-87" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the network graph with node sizes according to degree centrality</span></span>
-<span id="cb13-88"><a href="#cb13-88" aria-hidden="true" tabindex="-1"></a>pos <span class="op">=</span> nx.spring_layout(G, seed<span class="op">=</span><span class="dv">42</span>)</span>
-<span id="cb13-89"><a href="#cb13-89" aria-hidden="true" tabindex="-1"></a>nx.draw(G, pos, with_labels<span class="op">=</span><span class="va">True</span>, node_color<span class="op">=</span><span class="st">'skyblue'</span>, node_size<span class="op">=</span>node_size, font_size<span class="op">=</span><span class="dv">10</span>, font_weight<span class="op">=</span><span class="st">'bold'</span>)</span>
-<span id="cb13-90"><a href="#cb13-90" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Character Network Analysis of Sense and Sensibility"</span>)</span>
-<span id="cb13-91"><a href="#cb13-91" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Emma</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>edges1 <span class="op">=</span> [</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'Emma'</span>, <span class="st">'Harriet'</span>),</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'Emma'</span>, <span class="st">'Jane'</span>),</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'Emma'</span>, <span class="st">'Mr.Knightley'</span>),</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'Emma'</span>, <span class="st">'Mrs.Weston'</span>),</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'Jane'</span>, <span class="st">'Frank'</span>),</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'Jane'</span>, <span class="st">'Mrs.Weston'</span>),</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'Mr.Knightley'</span>, <span class="st">'Harriet'</span>),</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'Harriet'</span>, <span class="st">'Mr.Elton'</span>),</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'Emma'</span>, <span class="st">'Miss Bates'</span>),</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'Miss Bates'</span>, <span class="st">'Jane'</span>) </span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a network graph</span></span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>G <span class="op">=</span> nx.Graph()</span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>G.add_edges_from(edges1)</span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate degree centrality for each node (character)</span></span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a>degree_centrality <span class="op">=</span> nx.degree_centrality(G)</span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate node size based on degree centrality (multiply by a scaling factor for better visualization)</span></span>
+<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a>node_size <span class="op">=</span> [<span class="dv">2000</span> <span class="op">*</span> degree_centrality[node] <span class="cf">for</span> node <span class="kw">in</span> G.nodes()]</span>
+<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the network graph with node sizes according to degree centrality</span></span>
+<span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a>pos <span class="op">=</span> nx.spring_layout(G, seed<span class="op">=</span><span class="dv">42</span>)</span>
+<span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a>nx.draw(G, pos, with_labels<span class="op">=</span><span class="va">True</span>, node_color<span class="op">=</span><span class="st">'skyblue'</span>, node_size<span class="op">=</span>node_size, font_size<span class="op">=</span><span class="dv">10</span>, font_weight<span class="op">=</span><span class="st">'bold'</span>)</span>
+<span id="cb13-30"><a href="#cb13-30" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Character Network Analysis of Emma"</span>)</span>
+<span id="cb13-31"><a href="#cb13-31" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb13-32"><a href="#cb13-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-33"><a href="#cb13-33" aria-hidden="true" tabindex="-1"></a><span class="co"># Sense and Sensibility</span></span>
+<span id="cb13-34"><a href="#cb13-34" aria-hidden="true" tabindex="-1"></a>edges2 <span class="op">=</span> [</span>
+<span id="cb13-35"><a href="#cb13-35" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'Elizabeth'</span>, <span class="st">'Darcy'</span>),</span>
+<span id="cb13-36"><a href="#cb13-36" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'Elizabeth'</span>, <span class="st">'Jane'</span>),</span>
+<span id="cb13-37"><a href="#cb13-37" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'Jane'</span>, <span class="st">'Bingley'</span>),</span>
+<span id="cb13-38"><a href="#cb13-38" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'Elizabeth'</span>, <span class="st">'Mrs.Bennet'</span>),</span>
+<span id="cb13-39"><a href="#cb13-39" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'Elizabeth'</span>, <span class="st">'Wickham'</span>),</span>
+<span id="cb13-40"><a href="#cb13-40" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'Elizabeth'</span>, <span class="st">'Mr.Collins'</span>),</span>
+<span id="cb13-41"><a href="#cb13-41" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'Mr.Collins'</span>, <span class="st">'Lady Catherine'</span>),</span>
+<span id="cb13-42"><a href="#cb13-42" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'Lady Catherine'</span>, <span class="st">'Darcy'</span>),</span>
+<span id="cb13-43"><a href="#cb13-43" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'Charlotte'</span>, <span class="st">'Elizabeth'</span>),</span>
+<span id="cb13-44"><a href="#cb13-44" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'Charlotte'</span>, <span class="st">'Mr.Collins'</span>)</span>
+<span id="cb13-45"><a href="#cb13-45" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb13-46"><a href="#cb13-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-47"><a href="#cb13-47" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a network graph</span></span>
+<span id="cb13-48"><a href="#cb13-48" aria-hidden="true" tabindex="-1"></a>G <span class="op">=</span> nx.Graph()</span>
+<span id="cb13-49"><a href="#cb13-49" aria-hidden="true" tabindex="-1"></a>G.add_edges_from(edges2)</span>
+<span id="cb13-50"><a href="#cb13-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-51"><a href="#cb13-51" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate degree centrality for each node (character)</span></span>
+<span id="cb13-52"><a href="#cb13-52" aria-hidden="true" tabindex="-1"></a>degree_centrality <span class="op">=</span> nx.degree_centrality(G)</span>
+<span id="cb13-53"><a href="#cb13-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-54"><a href="#cb13-54" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate node size based on degree centrality (multiply by a scaling factor for better visualization)</span></span>
+<span id="cb13-55"><a href="#cb13-55" aria-hidden="true" tabindex="-1"></a>node_size <span class="op">=</span> [<span class="dv">2000</span> <span class="op">*</span> degree_centrality[node] <span class="cf">for</span> node <span class="kw">in</span> G.nodes()]</span>
+<span id="cb13-56"><a href="#cb13-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-57"><a href="#cb13-57" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the network graph with node sizes according to degree centrality</span></span>
+<span id="cb13-58"><a href="#cb13-58" aria-hidden="true" tabindex="-1"></a>pos <span class="op">=</span> nx.spring_layout(G, seed<span class="op">=</span><span class="dv">42</span>)</span>
+<span id="cb13-59"><a href="#cb13-59" aria-hidden="true" tabindex="-1"></a>nx.draw(G, pos, with_labels<span class="op">=</span><span class="va">True</span>, node_color<span class="op">=</span><span class="st">'skyblue'</span>, node_size<span class="op">=</span>node_size, font_size<span class="op">=</span><span class="dv">10</span>, font_weight<span class="op">=</span><span class="st">'bold'</span>)</span>
+<span id="cb13-60"><a href="#cb13-60" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Character Network Analysis of Pride and Prejudice"</span>)</span>
+<span id="cb13-61"><a href="#cb13-61" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb13-62"><a href="#cb13-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-63"><a href="#cb13-63" aria-hidden="true" tabindex="-1"></a>edges3 <span class="op">=</span> [</span>
+<span id="cb13-64"><a href="#cb13-64" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'Elinor'</span>, <span class="st">'Marianne'</span>),</span>
+<span id="cb13-65"><a href="#cb13-65" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'Elinor'</span>, <span class="st">'Willoughby'</span>),</span>
+<span id="cb13-66"><a href="#cb13-66" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'Willoughby'</span>, <span class="st">'Marianne'</span>),</span>
+<span id="cb13-67"><a href="#cb13-67" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'Elinor'</span>, <span class="st">'Mrs.Dashwood'</span>),</span>
+<span id="cb13-68"><a href="#cb13-68" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'Elinor'</span>, <span class="st">'Lucy Steele'</span>),</span>
+<span id="cb13-69"><a href="#cb13-69" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'Mrs.Dashwood'</span>, <span class="st">'Marianne'</span>),</span>
+<span id="cb13-70"><a href="#cb13-70" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'Elinor'</span>, <span class="st">'Mrs.Jennings'</span>),</span>
+<span id="cb13-71"><a href="#cb13-71" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'Mrs.Jennings'</span>, <span class="st">'Marianne'</span>),</span>
+<span id="cb13-72"><a href="#cb13-72" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'Elinor'</span>, <span class="st">'Mr.Palmer'</span>),</span>
+<span id="cb13-73"><a href="#cb13-73" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'Marianne'</span>, <span class="st">'Mrs.Ferrars'</span>)</span>
+<span id="cb13-74"><a href="#cb13-74" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb13-75"><a href="#cb13-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-76"><a href="#cb13-76" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a network graph</span></span>
+<span id="cb13-77"><a href="#cb13-77" aria-hidden="true" tabindex="-1"></a>G <span class="op">=</span> nx.Graph()</span>
+<span id="cb13-78"><a href="#cb13-78" aria-hidden="true" tabindex="-1"></a>G.add_edges_from(edges3)</span>
+<span id="cb13-79"><a href="#cb13-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-80"><a href="#cb13-80" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate degree centrality for each node (character)</span></span>
+<span id="cb13-81"><a href="#cb13-81" aria-hidden="true" tabindex="-1"></a>degree_centrality <span class="op">=</span> nx.degree_centrality(G)</span>
+<span id="cb13-82"><a href="#cb13-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-83"><a href="#cb13-83" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate node size based on degree centrality (multiply by a scaling factor for better visualization)</span></span>
+<span id="cb13-84"><a href="#cb13-84" aria-hidden="true" tabindex="-1"></a>node_size <span class="op">=</span> [<span class="dv">2000</span> <span class="op">*</span> degree_centrality[node] <span class="cf">for</span> node <span class="kw">in</span> G.nodes()]</span>
+<span id="cb13-85"><a href="#cb13-85" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-86"><a href="#cb13-86" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the network graph with node sizes according to degree centrality</span></span>
+<span id="cb13-87"><a href="#cb13-87" aria-hidden="true" tabindex="-1"></a>pos <span class="op">=</span> nx.spring_layout(G, seed<span class="op">=</span><span class="dv">42</span>)</span>
+<span id="cb13-88"><a href="#cb13-88" aria-hidden="true" tabindex="-1"></a>nx.draw(G, pos, with_labels<span class="op">=</span><span class="va">True</span>, node_color<span class="op">=</span><span class="st">'skyblue'</span>, node_size<span class="op">=</span>node_size, font_size<span class="op">=</span><span class="dv">10</span>, font_weight<span class="op">=</span><span class="st">'bold'</span>)</span>
+<span id="cb13-89"><a href="#cb13-89" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Character Network Analysis of Sense and Sensibility"</span>)</span>
+<span id="cb13-90"><a href="#cb13-90" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-error">
-<pre><code>NameError: name 'plt' is not defined</code></pre>
+<div class="cell-output cell-output-display">
+<p><img src="Jane_Austen_files/figure-html/cell-18-output-1.png" class="img-fluid"></p>
 </div>
 <div class="cell-output cell-output-display">
 <p><img src="Jane_Austen_files/figure-html/cell-18-output-2.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="Jane_Austen_files/figure-html/cell-18-output-3.png" class="img-fluid"></p>
 </div>
 </div>
 <p>This is the character analysis of all three books. These character networks shows that Jane Austen likes to write about female protagonists, and the men and family members revolving around the female protagonist. Austen’s writings always favor the themes of romance, marriage, and family. Through the character analysis, we can see that Austen’s writing style heavily emphasizes familial and friend relationships around the main character, and using these relationships to connect together, oftentimes a close-knit circle of characters and then giving her narrative about society and interpersonal relationships.</p>
